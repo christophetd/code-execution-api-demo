@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <style>
+            body {
+                background-color: #e8e8e8;
+            }
+            
+            #container {
+                width: 50%;
+                margin: auto;
+                background-color: white;
+                border: 1px solid black;
+                padding: 10px;
+                margin-top: 50px;
+                padding-left: 30px;
+            }
+            
+            #output {
+                font-family: Courrier;
+            }
+            
+        </style>
+        <link rel="stylesheet" href="codemirror.css">
+        <link rel="stylesheet" href="neo.css">
+        <script src="codemirror.js"></script>
+        <script src="python.js"></script>
+        <script src="jquery.js"></script>
+
+    </head>
+    <body>
+        <div id="container">
+            <h1>Compile Python</h1>
+            
+            <p>This is a demo compiling Python code inside a Docker container created on the fly.</p>
+            
+            <textarea id="code" style="display: none;">print "Hello, world!"</textarea>
+            
+            <center>
+                <input type="submit" value="Run" id="runButton" />
+            </center>
+           
+            
+  
+                <div id="output"><pre></pre></div>
+                <div id="loading" style="display: none;">Running...</div>
+   
+        </div>
+    </body>
+    <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+        lineNumbers: true, 
+        theme: 'neo', 
+        mode: {name: "python"}
+    });
+
+    var runCode = function() {
+        var code = editor.getValue();
+        $('#output').hide();
+        $('#loading').show();
+        $.post({
+            url: '/compile', 
+            contentType: "application/json",
+            dataType: 'json', 
+            data: JSON.stringify({code: code}),
+            success: showResult, 
+            error: error
+        });
+    }
+    
+    var error = function(res) {
+        $('#loading').hide();
+        $('#output').show();
+        $('#output> pre').html("<span style='color: red'><b>"+res.responseText+"</b></span>");
+    }
+    
+    var showResult = function(response) {
+        $('#loading').hide();
+        $('#output').show();
+        $('#output >pre').text(response.combined);
+        
+        if (response.timedOut) {
+            $('#output > pre').text((response.combined || "") + " ... timeout")
+        }
+    }
+    
+    $('#runButton').click (runCode);
+    </script>
+</html>
