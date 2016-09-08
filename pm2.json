@@ -1,0 +1,6 @@
+{
+	"name": "sandbox-api", 
+	"script": "api/app.js"
+	"merge_logs": true, 
+	"autorestart": true
+}

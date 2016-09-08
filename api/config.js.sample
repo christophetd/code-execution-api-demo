@@ -1,0 +1,61 @@
+"use strict";
+
+let config = {
+    api: {},
+    debug: {},
+    security: {}, 
+    sandbox: {}, 
+    log: {}
+};
+
+/**
+ * Determines if you want to serve a sample UI allowing you
+ * to run code
+ */
+config.debug.serveSampleUi = true;
+
+/**
+ * The log level to use
+ */
+config.log.level = 'info';
+
+/**
+ * The main endpoint to compile code
+ */
+config.api.endpoint = '/compile';
+
+/**
+ *  The port on which the API should listen. Make sure it is accessible.
+ */
+config.api.port = process.env.PORT || 3000;
+
+/**
+ *  The secret key used to access the API 
+ */
+config.security.secret          = process.env.SECRET || /* CHANGE THIS --> */ 'sdkljf56789#KT34_'; /* <-- CHANGE THIS */
+config.security.secret_header   = 'X-API-Key';
+
+/**
+ * Rate limitation configuration
+ * No more than 'rate' requests will be allowed per 'rateWindowMs'.
+ * Example : if rate = 2 and rateWindowMs = 1, no more than 2 requests per second will be allowed.
+ */
+//config.security.rateWindowMs = 1000;
+//config.security.rate = 2;
+
+/**
+ * The IP addresses from which to allow the requests (disabled by default)
+ */
+//config.security.allowedIps = [ '1.2.3.4' ];
+
+/**
+ * The docker-python-sandbox configuration to use. By default, the default configuration of the 
+ * Sandbox is used. Uncomment the lines below to override that.
+ */
+config.sandbox = {};
+
+//config.sandbox.poolSize = 3;
+//config.sandbox.memoryLimitMb = 50;
+//config.sandbox.timeoutMs = 10000;
+
+module.exports = config;

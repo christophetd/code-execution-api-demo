@@ -60,6 +60,9 @@
         $.post({
             url: '/compile', 
             contentType: "application/json",
+            headers: {
+                "X-API-Key": "sdkljf56789#KT34_"
+            },
             dataType: 'json', 
             data: JSON.stringify({code: code}),
             success: showResult, 
