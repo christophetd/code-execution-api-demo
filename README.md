@@ -1,4 +1,4 @@
-This is a sample API using the Docker Python Sandbox library.
+This is a sample API using the [Docker Python Sandbox](https://github.com/christophetd/docker-python-sandbox) library.
 
 ## Requirements
 
