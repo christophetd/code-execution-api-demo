@@ -16,7 +16,7 @@ module.exports = (request, response, next) => {
         return next();
     }
     
-    let ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
+    let ip = request.connection.remoteAddress;
     
     if (!ip || allowedIps.indexOf(ip) < 0) {
         notAllowedResponse.error = notAllowedResponse.error.replace(':ip:', ip);
