@@ -1,5 +1,7 @@
 This is a sample API using the [Docker Python Sandbox](https://github.com/christophetd/docker-python-sandbox) library.
 
+## [Live Demo](http://ec2-52-50-28-71.eu-west-1.compute.amazonaws.com:3000/)
+
 ## Requirements
 
 - Node
