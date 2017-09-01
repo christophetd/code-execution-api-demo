@@ -17,8 +17,14 @@ module.exports = (sandbox) => (request, response) => {
       .json(ERRORS.noCode)
       .end();
   }
-  sandbox.run(request.body.code, function (err, result) {
-    
+
+  options = {
+    code: request.body.code, 
+    v3: (request.body.v3 == true || request.body.v3 == "true")
+  }
+
+  sandbox.run(options, function (err, result) {
+      
     if (err) {
       return response
         .status(ERRORS.internal.status)
